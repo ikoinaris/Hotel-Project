@@ -31,4 +31,9 @@ public class HotelController {
     public void updateHotel(@RequestBody Hotel hotel) {
         this.hotelRepository.save(hotel);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteHotel(@PathVariable("id") String id) {
+        this.hotelRepository.deleteById(id);
+    }
 }
