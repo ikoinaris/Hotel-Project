@@ -2,9 +2,7 @@ package demo.hotelproject.controller;
 
 import demo.hotelproject.entity.Hotel;
 import demo.hotelproject.repository.HotelRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +20,15 @@ public class HotelController {
     public List<Hotel> getAllHotels(){
         List<Hotel> hotels = hotelRepository.findAll();
         return hotels;
+    }
+
+    @PutMapping
+    public void inserthotel(@RequestBody Hotel hotel) {
+        this.hotelRepository.insert(hotel);
+    }
+
+    @PostMapping
+    public void updateHotel(@RequestBody Hotel hotel) {
+        this.hotelRepository.save(hotel);
     }
 }
