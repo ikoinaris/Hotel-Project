@@ -1,15 +1,23 @@
-package demo.hotelproject.seeder;
+package demo.hotelproject.controller;
 
 import demo.hotelproject.entity.Address;
 import demo.hotelproject.entity.Hotel;
 import demo.hotelproject.entity.Review;
+import demo.hotelproject.repository.HotelRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Component
 public class DbSeeder implements CommandLineRunner {
+
+    private HotelRepository hotelRepository;
+
+    public DbSeeder(HotelRepository hotelRepository) {
+        this.hotelRepository = hotelRepository;
+    }
 
     @Override
     public void run(String... args) throws Exception {
@@ -37,5 +45,12 @@ public class DbSeeder implements CommandLineRunner {
                         new Review("Peter", 8, false),
                         new Review("Mary", 7, false))
         );
+
+        // drop all hotels
+        this.hotelRepository.deleteAll();
+
+        // add hotels to database
+        List<Hotel> hotels = Arrays.asList(marriot, ibis, sofitel);
+        this.hotelRepository.saveAll(hotels);
     }
 }
