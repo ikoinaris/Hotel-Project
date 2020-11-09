@@ -36,4 +36,28 @@ public class HotelController {
     public void deleteHotel(@PathVariable("id") String id) {
         this.hotelRepository.deleteById(id);
     }
+
+    @GetMapping("/{id}")
+    public Hotel getById(@PathVariable("id") String id){
+        Hotel hotel = this.hotelRepository.getById(id);
+        return hotel;
+    }
+
+    @GetMapping("/price/{maxPrice}")
+    public List<Hotel> getByPrice(@PathVariable("maxPrice") int maxPrice){
+        List<Hotel> hotels = this.hotelRepository.findByPricePerNightLessThan(maxPrice);
+        return hotels;
+    }
+
+    @GetMapping("/city/{city}")
+    public List<Hotel> getByCity(@PathVariable("city") String city) {
+        List<Hotel> hotels = this.hotelRepository.findByCityName(city);
+        return hotels;
+    }
+
+    @GetMapping("/country/{country}")
+    public List<Hotel> getByCountry(@PathVariable("country") String country) {
+        List<Hotel> hotels = this.hotelRepository.findByCountryName(country);
+        return hotels;
+    }
 }
